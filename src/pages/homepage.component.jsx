@@ -19,13 +19,13 @@ const HomePage = ({ name, proffesion}) => {
                     Vitae, sunt? Itaque a perspiciatis tempora 
                     optio tempore.</p>
                 </div>
-                <div className='socialmedia'>
-                    <div className='insta-wrapper'>
+                <div className='socialmedia' href='https://www.instagram.com' >
+                    <a className='insta-wrapper'>
                         <img className='insta' src={insta} alt=""  />
-                    </div>
-                    <div className='twitter-wrapper'>
+                    </a>
+                    <a className='twitter-wrapper' href='https://twitter.com/?lang=sv'>
                         <img className="twitterlogo" src={twitterLogo} alt="" />
-                    </div>
+                    </a>
                     <img src="" alt="" />
                     <img src="" alt="" />
                 </div>

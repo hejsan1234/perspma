@@ -36,6 +36,7 @@
     position: relative;
     margin-left: 30px;
     margin-top: 40px;
+    
 }
 
 .logo:after {
@@ -52,4 +53,9 @@
 
 .logo:hover {
     cursor: pointer;
+}
+
+.text-link {
+    color: inherit;
+    text-decoration: inherit;
 }
