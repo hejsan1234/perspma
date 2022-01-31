@@ -12,11 +12,13 @@ export const Navbar = () => {
                 <div className='text-wrapper'>
                     <div className='about'>
                         <h1>
-                            <Link className='text-link' to='/contact' >About</Link>
+                            <Link className='text-link' to='/' >About</Link>
                         </h1>
                     </div>
                     <div className='contact'>
-                        <h1>Contact</h1>
+                        <h1>
+                            <Link className='text-link' to='/contact'>Contact</Link>
+                        </h1>
                     </div>
                     <div className='work'>
                         <h1>Work</h1>

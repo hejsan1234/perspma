@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { db } from '../../firebase/firebaseconfig.js';
 import { collection, addDoc, getDocs } from "firebase/firestore";
-
+import './signin.styles.css'
 
 export const Signin = () => {
 
-  const [Name, setName] = useState(null);
-  const [Email, setEmail] = useState(null);
-  const [Message, setMessage] = useState(null);
+  const [Name, setName] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Message, setMessage] = useState('');
 
   const setData = async () => {
     try {
@@ -51,27 +51,41 @@ export const Signin = () => {
         message: Message
       })
       console.log('added user and email with id of: ', docRef.id)
+      setEmail('')
+      setMessage('')
+      setName('')
     } catch(err) {
       console.log('there was an error', err)
     }
   }
 
   return (
-    <div>
-        <form onSubmit={contactSubmit}>
-          <div>
-            <input type="text" onChange={getName} ></input>
-          </div>
-          <div>
-            <input type="text" onChange={getEmail} ></input>
-          </div>
-          <div>
-            <input type="text" onChange={getMessage} ></input>
-          </div>
-          <div>
-            <input type="submit"></input>
-          </div>
-        </form>
+    <div className='contact-container'>
+      <div className='title-container'>
+        <div className='title-wrapper'> 
+          <p className='contact-title'>CONTACT</p>
+          <p className='title-message'>Let's get in touch</p>
+        </div>
+      </div>
+        <div className="form-container">
+          <form onSubmit={contactSubmit} className='form'>
+            <div className='Name-input'>
+              <p className='Name-title'>NAME</p>
+              <input type="text" onChange={getName} value={Name} className='input-type-1'></input>
+            </div>
+            <div className='Email-input'>
+              <p className='Email-title'>EMAIL</p>
+              <input type="text" onChange={getEmail} value={Email} className='input-type-1'></input>
+            </div>
+            <div className='Message-input'>
+              <p className='Message-title'>MESSAGE</p>
+              <input type="text" onChange={getMessage} value={Message}></input>
+            </div>
+            <div>
+              <input type="submit"></input>
+            </div>
+          </form>
+        </div>
     </div>
   );
 };

@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+}
+
+.contact-container {
+    background-color: grey;
+    display: grid;
+    height: 100vh;
+}
+
+.title-container, .form-container {
+    margin: auto;
+}
+
+.contact-title, .title-message {
+    color: white;
+}
