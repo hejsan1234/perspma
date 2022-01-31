@@ -3,11 +3,15 @@ import { db } from '../../firebase/firebaseconfig.js';
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import './signin.styles.css'
 
+import swal from 'sweetalert'
+
 export const Signin = () => {
 
   const [Name, setName] = useState('');
   const [Email, setEmail] = useState('');
   const [Message, setMessage] = useState('');
+
+  const [loader, setloader] = useState(false);
 
   const setData = async () => {
     try {
@@ -44,49 +48,47 @@ export const Signin = () => {
 
   const contactSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const docRef = await addDoc(collection(db, 'emails'), {
-        name: Name,
-        email: Email,
-        message: Message
-      })
-      console.log('added user and email with id of: ', docRef.id)
+    if (Name === '' || Email === '' || Message === '') {
+      setloader(true)
+      swal("You can't leave any fields empty", '', 'warning')
+      setloader(true)
+    } else {
+      setloader(true)
+      try {
+        const docRef = await addDoc(collection(db, 'emails'), {
+          name: Name,
+          email: Email,
+          message: Message
+        })
+        .then(() => {
+          setloader(false);
+          swal("Your message has been submitted", '', 'success')
+        })
+      } catch(err) {
+        swal("There has been an error", err.message, 'warning')
+        setloader(true)
+      }
+
       setEmail('')
       setMessage('')
       setName('')
-    } catch(err) {
-      console.log('there was an error', err)
     }
   }
 
   return (
-    <div className='contact-container'>
-      <div className='title-container'>
-        <div className='title-wrapper'> 
-          <p className='contact-title'>CONTACT</p>
-          <p className='title-message'>Let's get in touch</p>
-        </div>
+      <div className="form-container">
+        <form onSubmit={contactSubmit} className='container'>
+          <div className='contact-box'>
+            <div className="right">
+              <h2>Contact Me</h2>
+              <input type="text" className='field' placeholder='Name' value={Name} onChange={getName} />
+              <input type="text" className='field' placeholder='Email' value={Email} onChange={getEmail} />
+              <textarea className='field' placeholder='Message' value={Message} onChange={getMessage}></textarea>
+              <input type="submit" value='Submit' className='submit' />
+            </div>
+          </div>
+        </form>
       </div>
-        <div className="form-container">
-          <form onSubmit={contactSubmit} className='form'>
-            <div className='Name-input'>
-              <p className='Name-title'>NAME</p>
-              <input type="text" onChange={getName} value={Name} className='input-type-1'></input>
-            </div>
-            <div className='Email-input'>
-              <p className='Email-title'>EMAIL</p>
-              <input type="text" onChange={getEmail} value={Email} className='input-type-1'></input>
-            </div>
-            <div className='Message-input'>
-              <p className='Message-title'>MESSAGE</p>
-              <input type="text" onChange={getMessage} value={Message}></input>
-            </div>
-            <div>
-              <input type="submit"></input>
-            </div>
-          </form>
-        </div>
-    </div>
   );
 };
 
